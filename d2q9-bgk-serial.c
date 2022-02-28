@@ -161,7 +161,6 @@ int main(int argc, char* argv[])
   {
     av_vels[tt] =  timestep(params, cells, tmp_cells, obstacles);
     ptr_swap(&cells, &tmp_cells);
-    //av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
     printf("av velocity: %.12E\n", av_vels[tt]);
