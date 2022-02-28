@@ -9,7 +9,7 @@
 
 set -e
 
-EXE=d2q9-bgk-serial
+EXE=d2q9-bgk-parallel
 ENV=env.sh
 
 module list |& tail -n +2

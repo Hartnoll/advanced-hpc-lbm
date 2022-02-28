@@ -210,9 +210,8 @@ float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* ob
   const float w2 = 1.f / 36.f; /* weighting factor */
   float tot_u = 0.f; 
   int tot_cells = 0;
-  //#pragma omp parralel for collapse(2)
-  for (int jj = 0; jj < params.ny; jj++)
-  {
+  #pragma omp parallel for num_threads(28) collapse(2)
+  for (int jj = 0; jj < params.ny; jj++) {
     for (int ii = 0; ii < params.nx; ii++)
     {
       /* determine indices of axis-direction neighbours
