@@ -1,12 +1,27 @@
+<<<<<<< HEAD
 Running on host compute101.bc4.acrc.priv
 Time is Mon Feb 28 14:02:07 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
 Slurm job ID is 10073666
+=======
+Running on host compute104.bc4.acrc.priv
+Time is Mon Feb 28 12:57:36 GMT 2022
+Directory is /user/home/gz19577/advanced-hpc-lbm
+Slurm job ID is 10073076
+>>>>>>> 0e2a3a5c7fa5321dfd1674d52c7e7983454a2f7d
 This job runs on the following machines:
 compute101
 ==done==
+<<<<<<< HEAD
 Reynolds number:		1.006790256500E+01
 Elapsed Init time:			0.005376 (s)
 Elapsed Compute time:			191.895124 (s)
 Elapsed Collate time:			0.000001 (s)
 Elapsed Total time:			191.900501 (s)
+=======
+Reynolds number:		9.757063865662E+00
+Elapsed Init time:			0.026209 (s)
+Elapsed Compute time:			28.467701 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			28.493911 (s)
+>>>>>>> 0e2a3a5c7fa5321dfd1674d52c7e7983454a2f7d
