@@ -262,7 +262,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
                                 + cells[x_e + y_n*params.nx].speeds[7]
                                 + cells[x_w + y_n*params.nx].speeds[8]);
 
-
+        const float denom = 1/local_density;
         /* compute x velocity component */
         const float u_x = (speed1
                       + speed5
@@ -270,7 +270,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
                       - (speed3
                          + speed6
                          + speed7))
-                     / local_density;
+                      * denom;
         /* compute y velocity component */
         const float u_y = (speed2
                       + speed5
@@ -278,7 +278,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
                       - (speed4
                          + speed7
                          + speed8))
-                     / local_density;
+                      * denom;
 
         /* velocity squared */
         const float u_sq = u_x * u_x + u_y * u_y;
@@ -296,35 +296,37 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
 
         /* equilibrium densities */
         float d_equ[NSPEEDS];
+        const float denom2 = u_sq / (2.f * c_sq);
         /* zero velocity density: weight w0 */
         d_equ[0] = w0 * local_density
-                   * (1.f - u_sq / (2.f * c_sq));
-        /* axis speeds: weight w1 */        
+                   * (1.f - denom2);
+        /* axis speeds: weight w1 */
+        //const float u1_div_c_sq = u[1]/c_sq;        
         d_equ[1] = w1 * local_density * (1.f + u[1] / c_sq
                                          + (u[1] * u[1]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[2] = w1 * local_density * (1.f + u[2] / c_sq
                                          + (u[2] * u[2]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[3] = w1 * local_density * (1.f + u[3] / c_sq
                                          + (u[3] * u[3]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[4] = w1 * local_density * (1.f + u[4] / c_sq
                                          + (u[4] * u[4]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         /* diagonal speeds: weight w2 */
         d_equ[5] = w2 * local_density * (1.f + u[5] / c_sq
                                          + (u[5] * u[5]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[6] = w2 * local_density * (1.f + u[6] / c_sq
                                          + (u[6] * u[6]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[7] = w2 * local_density * (1.f + u[7] / c_sq
                                          + (u[7] * u[7]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
         d_equ[8] = w2 * local_density * (1.f + u[8] / c_sq
                                          + (u[8] * u[8]) / (2.f * c_sq * c_sq)
-                                         - u_sq / (2.f * c_sq));
+                                         - denom2);
                                          
         tmp_cells[ii + jj*params.nx].speeds[0] = speed0 + params.omega * (d_equ[0] - speed0);        
         tmp_cells[ii + jj*params.nx].speeds[1] = speed1 + params.omega * (d_equ[1] - speed1); 
