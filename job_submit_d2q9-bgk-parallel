@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #SBATCH --job-name d2q9-bgk-parallel
-#SBATCH --nodes 2
-#SBATCH --ntasks-per-node 14
+#SBATCH --nodes 1
+#SBATCH --ntasks-per-node 28
 #SBATCH --time 00:20:00
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662

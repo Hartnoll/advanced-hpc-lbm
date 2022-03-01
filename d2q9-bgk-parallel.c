@@ -94,7 +94,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
 ** timestep calls, in order, the functions:
 ** accelerate_flow(), propagate(), rebound() & collision()
 */
-float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles);
 int propagate(const t_param params, t_speed* cells, t_speed* tmp_cells);
 int rebound(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles);
@@ -159,8 +159,9 @@ int main(int argc, char* argv[])
 
   for (int tt = 0; tt < params.maxIters; tt++)
   {
-    av_vels[tt] =  timestep(params, cells, tmp_cells, obstacles);
+    timestep(params, cells, tmp_cells, obstacles);
     ptr_swap(&cells, &tmp_cells);
+    av_vels[tt] = av_velocity(params, cells, obstacles);
 #ifdef DEBUG
     printf("==timestep: %d==\n", tt);
     printf("av velocity: %.12E\n", av_vels[tt]);
@@ -200,7 +201,7 @@ void ptr_swap(t_speed** cells_ptr, t_speed** tmp_cells_ptr)
   *tmp_cells_ptr = temp;
 }
 
-float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
+int timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
 {
   accelerate_flow(params, cells, obstacles);
 
@@ -208,8 +209,7 @@ float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* ob
   const float w0 = 4.f / 9.f;  /* weighting factor */
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
-  float tot_u = 0.f; 
-  int tot_cells = 0;
+
   #pragma omp parallel for num_threads(28) collapse(2)
   for (int jj = 0; jj < params.ny; jj++) {
     for (int ii = 0; ii < params.nx; ii++)
@@ -334,12 +334,10 @@ float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* ob
         tmp_cells[ii + jj*params.nx].speeds[6] = speed6 + params.omega * (d_equ[6] - speed6);
         tmp_cells[ii + jj*params.nx].speeds[7] = speed7 + params.omega * (d_equ[7] - speed7);
         tmp_cells[ii + jj*params.nx].speeds[8] = speed8 + params.omega * (d_equ[8] - speed8);  
-        tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
-        ++tot_cells;                       
       }
     }
   }
-  return tot_u / (float)tot_cells;
+  return EXIT_SUCCESS;
 }
 
 int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
@@ -350,7 +348,7 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
 
   /* modify the 2nd row of the grid */
   int jj = params.ny - 2;
-
+  #pragma omp parallel for num_threads(28)
   for (int ii = 0; ii < params.nx; ii++)
   {
     /* if the cell is not occupied and
@@ -380,6 +378,7 @@ float av_velocity(const t_param params, t_speed* cells, int* obstacles)
   float tot_u = 0.f;          /* accumulated magnitudes of velocity for each cell */
 
   /* loop over all non-blocked cells */
+  #pragma omp parallel for num_threads(28) collapse(2)
   for (int jj = 0; jj < params.ny; jj++)
   {
     for (int ii = 0; ii < params.nx; ii++)
