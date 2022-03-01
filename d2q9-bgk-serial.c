@@ -200,7 +200,7 @@ void ptr_swap(t_speed** cells_ptr, t_speed** tmp_cells_ptr)
   *tmp_cells_ptr = temp;
 }
 
-float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* obstacles)
+float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict tmp_cells, int* restrict obstacles)
 {
   accelerate_flow(params, cells, obstacles);
 
@@ -281,7 +281,7 @@ float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* ob
                      / local_density;
 
         /* velocity squared */
-        float u_sq = u_x * u_x + u_y * u_y;
+        const float u_sq = u_x * u_x + u_y * u_y;
 
         /* directional velocity components */
         float u[NSPEEDS];
@@ -343,14 +343,14 @@ float timestep(const t_param params, t_speed* cells, t_speed* tmp_cells, int* ob
   return tot_u / (float)tot_cells;
 }
 
-int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
+int accelerate_flow(const t_param params, t_speed* restrict cells, int* restrict obstacles)
 {
   /* compute weighting factors */
-  float w1 = params.density * params.accel / 9.f;
-  float w2 = params.density * params.accel / 36.f;
+  const float w1 = params.density * params.accel / 9.f;
+  const float w2 = params.density * params.accel / 36.f;
 
   /* modify the 2nd row of the grid */
-  int jj = params.ny - 2;
+  const int jj = params.ny - 2;
 
   for (int ii = 0; ii < params.nx; ii++)
   {
@@ -375,7 +375,7 @@ int accelerate_flow(const t_param params, t_speed* cells, int* obstacles)
   return EXIT_SUCCESS;
 }
 
-float av_velocity(const t_param params, t_speed* cells, int* obstacles)
+float av_velocity(const t_param params, t_speed* restrict cells, int* restrict obstacles)
 {
   int    tot_cells = 0;  /* no. of cells used in calculation */
   float tot_u = 0.f;          /* accumulated magnitudes of velocity for each cell */
