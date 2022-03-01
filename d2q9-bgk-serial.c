@@ -221,6 +221,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
       const int x_e = (ii + 1) % params.nx;
       const int y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
       const int x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
+      //const int accel = (jj == (params.ny - 2)) =  
 
       const float speed0 = cells[ii + jj*params.nx].speeds[0]; /* central cell, no movement */
       const float speed1 = cells[x_w + jj*params.nx].speeds[1]; /* east */
@@ -246,10 +247,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
         tmp_cells[ii + jj*params.nx].speeds[6] = speed8;
         tmp_cells[ii + jj*params.nx].speeds[7] = speed5;
         tmp_cells[ii + jj*params.nx].speeds[8] = speed6;
-      }
-      
-
-      if (!isObstacle)
+      }else
       {
         /* compute local density total */
         const float local_density = (cells[ii + jj*params.nx].speeds[0] 
