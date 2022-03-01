@@ -1,12 +1,12 @@
-Running on host compute105.bc4.acrc.priv
-Time is Tue Mar 1 14:01:06 GMT 2022
+Running on host compute101.bc4.acrc.priv
+Time is Tue Mar 1 20:10:38 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10079267
+Slurm job ID is 10081181
 This job runs on the following machines:
-compute105
+compute101
 ==done==
-Reynolds number:		1.083918762207E+01
-Elapsed Init time:			0.026912 (s)
-Elapsed Compute time:			2.490555 (s)
-Elapsed Collate time:			0.000000 (s)
-Elapsed Total time:			2.517467 (s)
+Reynolds number:		1.135878467560E+01
+Elapsed Init time:			0.043447 (s)
+Elapsed Compute time:			15.163542 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			15.206990 (s)
