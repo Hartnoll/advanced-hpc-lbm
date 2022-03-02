@@ -1,13 +1,12 @@
-Running on host compute106.bc4.acrc.priv
-Time is Tue Mar 1 21:46:09 GMT 2022
+Running on host compute104.bc4.acrc.priv
+Time is Wed Mar 2 11:14:35 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10081506
+Slurm job ID is 10084534
 This job runs on the following machines:
-compute106
-slurmstepd: error: *** JOB 10081505 ON compute101 CANCELLED AT 2022-03-01T21:46:15 ***
-==done==
-Reynolds number:		1.006665325165E+01
-Elapsed Init time:			0.005553 (s)
-Elapsed Compute time:			11.867240 (s)
+compute104
+28282828282828282828282828282828282828282828282828282828==done==
+Reynolds number:		4.872803856415E-06
+Elapsed Init time:			0.018035 (s)
+Elapsed Compute time:			2.760538 (s)
 Elapsed Collate time:			0.000001 (s)
-Elapsed Total time:			11.872794 (s)
+Elapsed Total time:			2.778574 (s)
