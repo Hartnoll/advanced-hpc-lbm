@@ -1,27 +1,12 @@
-<<<<<<< HEAD
-Running on host compute101.bc4.acrc.priv
-Time is Tue Mar 1 17:56:36 GMT 2022
+Running on host compute103.bc4.acrc.priv
+Time is Wed Mar 2 11:28:38 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10080873
+Slurm job ID is 10084675
 This job runs on the following machines:
-compute101
+compute103
 ==done==
-Reynolds number:		9.758118629456E+00
-Elapsed Init time:			0.024559 (s)
-Elapsed Compute time:			14.174030 (s)
+Reynolds number:		9.755623817444E+00
+Elapsed Init time:			0.002464 (s)
+Elapsed Compute time:			8.228939 (s)
 Elapsed Collate time:			0.000001 (s)
-Elapsed Total time:			14.198590 (s)
-=======
-Running on host compute105.bc4.acrc.priv
-Time is Tue Mar 1 16:38:37 GMT 2022
-Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10080269
-This job runs on the following machines:
-compute105
-==done==
-Reynolds number:		9.758093833923E+00
-Elapsed Init time:			0.002397 (s)
-Elapsed Compute time:			16.531424 (s)
-Elapsed Collate time:			0.000001 (s)
-Elapsed Total time:			16.533822 (s)
->>>>>>> serial-arithmetic-improvements
+Elapsed Total time:			8.231404 (s)

@@ -157,11 +157,7 @@ int main(int argc, char* argv[])
   gettimeofday(&timstr, NULL);
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   comp_tic=init_toc;
-  #pragma omp parallel
-  {
-    int nthreads = omp_get_num_threads();
-    printf("%i", nthreads);
-  }
+
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] =  timestep(params, cells, tmp_cells, obstacles);
@@ -220,7 +216,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
   int tot_cells = 0;
 
 
-  #pragma omp parallel for  collapse(2) reduction(+:tot_u,tot_cells) num_threads(14)
+  //#pragma omp parallel for  collapse(2) reduction(+:tot_u,tot_cells) num_threads(14)
   for (int jj = 0; jj < params.ny; jj++)
   {
     for (int ii = 0; ii < params.nx; ii++)
@@ -367,7 +363,7 @@ int accelerate_flow(const t_param params, t_speed* restrict cells, int* restrict
 
   /* modify the 2nd row of the grid */
   const int jj = params.ny - 2;
-  #pragma omp parallel for
+  //#pragma omp parallel for
   for (int ii = 0; ii < params.nx; ii++)
   {
     /* if the cell is not occupied and
