@@ -299,6 +299,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
         const float d_equ0 = w0 * local_density
                    * (1.f - denom2);
         /* axis speeds: weight w1 */
+<<<<<<< HEAD
         //const float u1_div_c_sq = u[1]/c_sq;        
         const float d_equ1 = w1 * local_density * (1.f + u[1] / c_sq
                                          + (u[1] * u[1]) / (2.f * c_sq * c_sq)
@@ -324,6 +325,40 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
                                          - denom2);
         const float d_equ8 = w2 * local_density * (1.f + u[8] / c_sq
                                          + (u[8] * u[8]) / (2.f * c_sq * c_sq)
+=======
+        const float u1_div_c_sq = u[1]/c_sq;        
+        d_equ[1] = w1 * local_density * (1.f + u1_div_c_sq
+                                         + 0.5f * u1_div_c_sq * u1_div_c_sq
+                                         - denom2);
+        const float u2_div_c_sq = u[2]/c_sq;        
+        d_equ[2] = w1 * local_density * (1.f + u2_div_c_sq
+                                         + 0.5f * u2_div_c_sq * u2_div_c_sq
+                                         - denom2);
+        const float u3_div_c_sq = u[3]/c_sq;
+        d_equ[3] = w1 * local_density * (1.f + u3_div_c_sq
+                                         + 0.5f * u3_div_c_sq * u3_div_c_sq
+                                         - denom2);
+        const float u4_div_c_sq = u[4]/c_sq;
+        d_equ[4] = w1 * local_density * (1.f + u4_div_c_sq
+                                         + 0.5f * u4_div_c_sq * u4_div_c_sq
+                                         - denom2);
+        /* diagonal speeds: weight w2 */
+        const float u5_div_c_sq = u[5]/c_sq;
+        d_equ[5] = w2 * local_density * (1.f + u5_div_c_sq
+                                         + 0.5f * u5_div_c_sq * u5_div_c_sq
+                                         - denom2);
+        const float u6_div_c_sq = u[6]/c_sq;
+        d_equ[6] = w2 * local_density * (1.f + u6_div_c_sq
+                                         + 0.5f * u6_div_c_sq * u6_div_c_sq
+                                         - denom2);
+        const float u7_div_c_sq = u[7]/c_sq;
+        d_equ[7] = w2 * local_density * (1.f + u7_div_c_sq
+                                         + 0.5f * u7_div_c_sq * u7_div_c_sq
+                                         - denom2);
+        const float u8_div_c_sq = u[8]/c_sq;
+        d_equ[8] = w2 * local_density * (1.f + u8_div_c_sq
+                                         + 0.5f * u8_div_c_sq * u8_div_c_sq
+>>>>>>> serial-arithmetic-improvements
                                          - denom2);
                                          
         tmp_cells[ii + jj*params.nx].speeds[0] = speed0 + params.omega * (d_equ0 - speed0);        
