@@ -214,8 +214,10 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
 
   float tot_u = 0.f; 
   int tot_cells = 0;
-
-
+  __assume((params.nx)%2==0); 
+  __assume((params.ny)%2==0);
+  __assume_aligned(cells, 64);
+  __assume_aligned(tmp_cells, 64);
   //#pragma omp parallel for  collapse(2) reduction(+:tot_u,tot_cells) num_threads(14)
   for (int jj = 0; jj < params.ny; jj++)
   {
@@ -360,7 +362,7 @@ int accelerate_flow(const t_param params, t_speed* restrict cells, int* restrict
   /* compute weighting factors */
   const float w1 = params.density * params.accel / 9.f;
   const float w2 = params.density * params.accel / 36.f;
-
+  __assume((params.nx)%2==0);
   /* modify the 2nd row of the grid */
   const int jj = params.ny - 2;
   //#pragma omp parallel for
@@ -506,12 +508,12 @@ int initialise(const char* paramfile, const char* obstaclefile,
   */
 
   /* main grid */
-  *cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
+  *cells_ptr = (t_speed*)_mm_malloc(sizeof(t_speed) * (params->ny * params->nx), 64);
 
   if (*cells_ptr == NULL) die("cannot allocate memory for cells", __LINE__, __FILE__);
 
   /* 'helper' grid, used as scratch space */
-  *tmp_cells_ptr = (t_speed*)malloc(sizeof(t_speed) * (params->ny * params->nx));
+  *tmp_cells_ptr = (t_speed*)_mm_malloc(sizeof(t_speed) * (params->ny * params->nx), 64);
 
   if (*tmp_cells_ptr == NULL) die("cannot allocate memory for tmp_cells", __LINE__, __FILE__);
 
@@ -596,10 +598,10 @@ int finalise(const t_param* params, t_speed** cells_ptr, t_speed** tmp_cells_ptr
   /*
   ** free up allocated memory
   */
-  free(*cells_ptr);
+  _mm_free(*cells_ptr);
   *cells_ptr = NULL;
 
-  free(*tmp_cells_ptr);
+  _mm_free(*tmp_cells_ptr);
   *tmp_cells_ptr = NULL;
 
   free(*obstacles_ptr);
