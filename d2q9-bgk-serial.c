@@ -55,6 +55,7 @@
 #include <time.h>
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <omp.h>
 
 #define NSPEEDS         9
 #define FINALSTATEFILE  "final_state.dat"
@@ -156,7 +157,11 @@ int main(int argc, char* argv[])
   gettimeofday(&timstr, NULL);
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   comp_tic=init_toc;
-
+  #pragma omp parallel
+  {
+    int nthreads = omp_get_num_threads();
+    printf("%i", nthreads);
+  }
   for (int tt = 0; tt < params.maxIters; tt++)
   {
     av_vels[tt] =  timestep(params, cells, tmp_cells, obstacles);
@@ -208,9 +213,14 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
   const float w0 = 4.f / 9.f;  /* weighting factor */
   const float w1 = 1.f / 9.f;  /* weighting factor */
   const float w2 = 1.f / 36.f; /* weighting factor */
+  const float aw1 = params.density * params.accel / 9.f;
+  const float aw2 = params.density * params.accel / 36.f;
+
   float tot_u = 0.f; 
   int tot_cells = 0;
 
+
+  #pragma omp parallel for  collapse(2) reduction(+:tot_u,tot_cells) num_threads(14)
   for (int jj = 0; jj < params.ny; jj++)
   {
     for (int ii = 0; ii < params.nx; ii++)
@@ -221,6 +231,7 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
       const int x_e = (ii + 1) % params.nx;
       const int y_s = (jj == 0) ? (jj + params.ny - 1) : (jj - 1);
       const int x_w = (ii == 0) ? (ii + params.nx - 1) : (ii - 1);
+      const int accel = (jj == (params.ny - 2)) ? 1 : 0;
 
       const float speed0 = cells[ii + jj*params.nx].speeds[0]; /* central cell, no movement */
       const float speed1 = cells[x_w + jj*params.nx].speeds[1]; /* east */
@@ -246,9 +257,8 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
         tmp_cells[ii + jj*params.nx].speeds[6] = speed8;
         tmp_cells[ii + jj*params.nx].speeds[7] = speed5;
         tmp_cells[ii + jj*params.nx].speeds[8] = speed6;
-      }
-
-      if (!isObstacle){
+      }else
+      {
         /* compute local density total */
         const float local_density = (cells[ii + jj*params.nx].speeds[0] 
                                 + cells[x_w + jj*params.nx].speeds[1]
@@ -266,16 +276,16 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
                       + speed5
                       + speed8
                       - (speed3
-                         + speed6
-                         + speed7))
+                        + speed6
+                        + speed7))
                       * denom;
         /* compute y velocity component */
         const float u_y = (speed2
                       + speed5
                       + speed6
                       - (speed4
-                         + speed7
-                         + speed8))
+                        + speed7
+                        + speed8))
                       * denom;
 
         /* velocity squared */
@@ -293,83 +303,54 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
         u[8] =   u_x - u_y;  /* south-east */
 
         /* equilibrium densities */
-        //float d_equ[NSPEEDS];
         const float denom2 = u_sq / (2.f * c_sq);
         /* zero velocity density: weight w0 */
         const float d_equ0 = w0 * local_density
-                   * (1.f - denom2);
+                  * (1.f - denom2);
         /* axis speeds: weight w1 */
-<<<<<<< HEAD
-        //const float u1_div_c_sq = u[1]/c_sq;        
-        const float d_equ1 = w1 * local_density * (1.f + u[1] / c_sq
-                                         + (u[1] * u[1]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ2 = w1 * local_density * (1.f + u[2] / c_sq
-                                         + (u[2] * u[2]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ3 = w1 * local_density * (1.f + u[3] / c_sq
-                                         + (u[3] * u[3]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ4 = w1 * local_density * (1.f + u[4] / c_sq
-                                         + (u[4] * u[4]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        /* diagonal speeds: weight w2 */
-        const float d_equ5 = w2 * local_density * (1.f + u[5] / c_sq
-                                         + (u[5] * u[5]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ6 = w2 * local_density * (1.f + u[6] / c_sq
-                                         + (u[6] * u[6]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ7 = w2 * local_density * (1.f + u[7] / c_sq
-                                         + (u[7] * u[7]) / (2.f * c_sq * c_sq)
-                                         - denom2);
-        const float d_equ8 = w2 * local_density * (1.f + u[8] / c_sq
-                                         + (u[8] * u[8]) / (2.f * c_sq * c_sq)
-=======
         const float u1_div_c_sq = u[1]/c_sq;        
-        d_equ[1] = w1 * local_density * (1.f + u1_div_c_sq
-                                         + 0.5f * u1_div_c_sq * u1_div_c_sq
-                                         - denom2);
+        const float d_equ1 = w1 * local_density * (1.f + u1_div_c_sq
+                                        + 0.5f * u1_div_c_sq * u1_div_c_sq
+                                        - denom2);
         const float u2_div_c_sq = u[2]/c_sq;        
-        d_equ[2] = w1 * local_density * (1.f + u2_div_c_sq
-                                         + 0.5f * u2_div_c_sq * u2_div_c_sq
-                                         - denom2);
+        const float d_equ2 = w1 * local_density * (1.f + u2_div_c_sq
+                                        + 0.5f * u2_div_c_sq * u2_div_c_sq
+                                        - denom2);
         const float u3_div_c_sq = u[3]/c_sq;
-        d_equ[3] = w1 * local_density * (1.f + u3_div_c_sq
-                                         + 0.5f * u3_div_c_sq * u3_div_c_sq
-                                         - denom2);
+        const float d_equ3 = w1 * local_density * (1.f + u3_div_c_sq
+                                        + 0.5f * u3_div_c_sq * u3_div_c_sq
+                                        - denom2);
         const float u4_div_c_sq = u[4]/c_sq;
-        d_equ[4] = w1 * local_density * (1.f + u4_div_c_sq
-                                         + 0.5f * u4_div_c_sq * u4_div_c_sq
-                                         - denom2);
+        const float d_equ4 = w1 * local_density * (1.f + u4_div_c_sq
+                                        + 0.5f * u4_div_c_sq * u4_div_c_sq
+                                        - denom2);
         /* diagonal speeds: weight w2 */
         const float u5_div_c_sq = u[5]/c_sq;
-        d_equ[5] = w2 * local_density * (1.f + u5_div_c_sq
-                                         + 0.5f * u5_div_c_sq * u5_div_c_sq
-                                         - denom2);
+        const float d_equ5 = w2 * local_density * (1.f + u5_div_c_sq
+                                        + 0.5f * u5_div_c_sq * u5_div_c_sq
+                                        - denom2);
         const float u6_div_c_sq = u[6]/c_sq;
-        d_equ[6] = w2 * local_density * (1.f + u6_div_c_sq
-                                         + 0.5f * u6_div_c_sq * u6_div_c_sq
-                                         - denom2);
+        const float d_equ6 = w2 * local_density * (1.f + u6_div_c_sq
+                                        + 0.5f * u6_div_c_sq * u6_div_c_sq
+                                        - denom2);
         const float u7_div_c_sq = u[7]/c_sq;
-        d_equ[7] = w2 * local_density * (1.f + u7_div_c_sq
-                                         + 0.5f * u7_div_c_sq * u7_div_c_sq
-                                         - denom2);
+        const float d_equ7 = w2 * local_density * (1.f + u7_div_c_sq
+                                        + 0.5f * u7_div_c_sq * u7_div_c_sq
+                                        - denom2);
         const float u8_div_c_sq = u[8]/c_sq;
-        d_equ[8] = w2 * local_density * (1.f + u8_div_c_sq
-                                         + 0.5f * u8_div_c_sq * u8_div_c_sq
->>>>>>> serial-arithmetic-improvements
-                                         - denom2);
-                                         
+        const float d_equ8 = w2 * local_density * (1.f + u8_div_c_sq
+                                        + 0.5f * u8_div_c_sq * u8_div_c_sq
+                                        - denom2);
+                                        
         tmp_cells[ii + jj*params.nx].speeds[0] = speed0 + params.omega * (d_equ0 - speed0);        
-        tmp_cells[ii + jj*params.nx].speeds[1] = speed1 + params.omega * (d_equ1 - speed1); 
+        tmp_cells[ii + jj*params.nx].speeds[1] = speed1 + params.omega * (d_equ1 - speed1); //+ aw1 * accel; 
         tmp_cells[ii + jj*params.nx].speeds[2] = speed2 + params.omega * (d_equ2 - speed2);                                               
-        tmp_cells[ii + jj*params.nx].speeds[3] = speed3 + params.omega * (d_equ3 - speed3);
+        tmp_cells[ii + jj*params.nx].speeds[3] = speed3 + params.omega * (d_equ3 - speed3); //- aw1 * accel;
         tmp_cells[ii + jj*params.nx].speeds[4] = speed4 + params.omega * (d_equ4 - speed4);
-        tmp_cells[ii + jj*params.nx].speeds[5] = speed5 + params.omega * (d_equ5 - speed5);
-        tmp_cells[ii + jj*params.nx].speeds[6] = speed6 + params.omega * (d_equ6 - speed6);
-        tmp_cells[ii + jj*params.nx].speeds[7] = speed7 + params.omega * (d_equ7 - speed7);
-        tmp_cells[ii + jj*params.nx].speeds[8] = speed8 + params.omega * (d_equ8 - speed8);  
+        tmp_cells[ii + jj*params.nx].speeds[5] = speed5 + params.omega * (d_equ5 - speed5); //+ aw2 * accel;
+        tmp_cells[ii + jj*params.nx].speeds[6] = speed6 + params.omega * (d_equ6 - speed6); //- aw2 * accel;
+        tmp_cells[ii + jj*params.nx].speeds[7] = speed7 + params.omega * (d_equ7 - speed7); //- aw2 * accel;
+        tmp_cells[ii + jj*params.nx].speeds[8] = speed8 + params.omega * (d_equ8 - speed8); //+ aw2 * accel;  
         tot_u += sqrtf((u_x * u_x) + (u_y * u_y));
         ++tot_cells;                       
       }
@@ -386,7 +367,7 @@ int accelerate_flow(const t_param params, t_speed* restrict cells, int* restrict
 
   /* modify the 2nd row of the grid */
   const int jj = params.ny - 2;
-
+  #pragma omp parallel for
   for (int ii = 0; ii < params.nx; ii++)
   {
     /* if the cell is not occupied and
