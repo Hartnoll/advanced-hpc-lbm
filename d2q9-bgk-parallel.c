@@ -395,6 +395,7 @@ float av_velocity(const t_param params, t_speed* restrict cells, int* restrict o
   float tot_u = 0.f;          /* accumulated magnitudes of velocity for each cell */
 
   /* loop over all non-blocked cells */
+ //#pragma omp parallel for reduction(+:tot_u,tot_cells) collapse(2)
   for (int jj = 0; jj < params.ny; jj++)
   {
     for (int ii = 0; ii < params.nx; ii++)
@@ -547,6 +548,7 @@ int initialise(const char* paramfile, const char* obstaclefile,
   }
 
   /* first set all cells in obstacle array to zero */
+  //#pragma omp parallel for collapse(2)
   for (int jj = 0; jj < params->ny; jj++)
   {
     for (int ii = 0; ii < params->nx; ii++)
@@ -655,7 +657,7 @@ int write_values(const t_param params, t_speed* cells, int* obstacles, float* av
   {
     die("could not open file output file", __LINE__, __FILE__);
   }
-
+  #pragma omp parallel for collapse(2)
   for (int jj = 0; jj < params.ny; jj++)
   {
     for (int ii = 0; ii < params.nx; ii++)

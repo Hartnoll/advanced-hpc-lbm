@@ -1,75 +1,152 @@
-Running on host compute216.bc4.acrc.priv
-Time is Tue Mar 8 14:08:22 GMT 2022
+Running on host compute105.bc4.acrc.priv
+Time is Tue Mar 8 17:37:47 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10118294
+Slurm job ID is 10120620
 This job runs on the following machines:
-compute216
-Intel(R) Advisor Command Line Tool
-Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Opening result  0 %                                                    advixe: Opening result  0 % Finalizing results                                 advixe: Opening result 75 % Finalizing results                                 advixe: Opening result 75 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 100 % Preparing data for display of survey call tree    advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/hs005 -command stop.
-Usage: ./d2q9-bgk-parallel <paramfile> <obstaclefile>
-advixe: Collection stopped.
-advixe: Warning: The application returned a non-zero exit value.
-advixe: Opening result  0 % done                                               advixe: Opening result  0 % Finalizing results                                 advixe: Opening result  0 % Finalizing the result                              advixe: Opening result  0 % Clearing the database                              advixe: Opening result 10 % Clearing the database                              advixe: Opening result 10 % Loading raw data to the database                   advixe: Opening result 10 % Loading 'systemcollector-9791-compute216.bc4.acrc.padvixe: Opening result 19 % Loading 'systemcollector-9791-compute216.bc4.acrc.padvixe: Opening result 19 % Loading '9791-9796.0.trace' file                   advixe: Opening result 19 % Loading 'tripcounts_4718_0.tcs' file               advixe: Opening result 27 % Loading 'tripcounts_4718_0.tcs' file               
-advixe: Error: Cannot load data file `/user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/hs005/data.1/advixe-runtrc.txt' ().
-advixe: Opening result 27 % Updating precomputed scalar metrics                advixe: Opening result 29 % Updating precomputed scalar metrics                advixe: Opening result 29 % Processing profile metrics and debug information   advixe: Opening result 29 % Setting data model parameters                      advixe: Opening result 29 % Resolving module symbols                           advixe: Opening result 29 % Resolving information for `d2q9-bgk-parallel'      advixe: Opening result 33 % Resolving information for `d2q9-bgk-parallel'      advixe: Opening result 33 % Resolving bottom user stack information            advixe: Opening result 34 % Resolving bottom user stack information            advixe: Opening result 35 % Resolving bottom user stack information            advixe: Opening result 35 % Resolving thread name information                  advixe: Opening result 36 % Resolving thread name information                  advixe: Opening result 36 % Resolving call target names for dynamic code       advixe: Opening result 38 % Resolving call target names for dynamic code       advixe: Opening result 40 % Resolving call target names for dynamic code       advixe: Opening result 40 % Processing profile metrics and debug information   
-advixe: Error: Error 0x40000024 (No data) -- No data is collected. Possible reasons:
- - Workload is too small. No samples are collected.
- - The application environment is not specified correctly.
- - The executable file has been stripped so cannot be profiled with algorithm analysis types.
- See the Troubleshooting help topic for more details.
- Also consider checking the collection log for additional information. 
-advixe: Opening result 43 % Processing profile metrics and debug information   advixe: Opening result 43 % Setting data model parameters                      advixe: Opening result 43 % Precomputing frequently used data                  advixe: Opening result 43 % Precomputing frequently used data                  advixe: Opening result 52 % Precomputing frequently used data                  advixe: Opening result 52 % Updating precomputed scalar metrics                advixe: Opening result 54 % Updating precomputed scalar metrics                advixe: Opening result 54 % Discarding redundant overtime data                 advixe: Opening result 56 % Discarding redundant overtime data                 advixe: Opening result 56 % Saving the result                                  advixe: Opening result 59 % Saving the result                                  advixe: Opening result 62 % Saving the result                                  advixe: Opening result 74 % Saving the result                                  advixe: Opening result 74 % Preparing data for display of survey call tree     advixe: Opening result 74 % Resolving module symbols                           advixe: Opening result 74 % Resolving information for dangling locations       advixe: Opening result 75 % Resolving information for dangling locations       advixe: Opening result 75 % Resolving bottom user stack information            advixe: Opening result 75 % Resolving thread name information                  advixe: Opening result 75 % Resolving call target names for dynamic code       advixe: Opening result 75 % Precomputing frequently used data                  advixe: Opening result 76 % Precomputing frequently used data                  advixe: Opening result 77 % Precomputing frequently used data                  advixe: Opening result 88 % Precomputing frequently used data                  advixe: Opening result 100 % Precomputing frequently used data                 advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-
-Elapsed Time: < 0.01s
-Total CPU time: 0
-
-Intel(R) Advisor Command Line Tool
-Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Opening result  0 %                                                    advixe: Opening result  0 % Finalizing results                                 advixe: Opening result 75 % Finalizing results                                 advixe: Opening result 75 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 100 % Preparing data for display of survey call tree    advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/mp005 -command stop.
-Usage: /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel <paramfile> <obstaclefile>
-advixe: Warning: No SITE annotations were encountered, so no stride/alignment data can be reported. 
-advixe: Warning: The application returned a non-zero exit value.
-advixe: Loading result...  0 % done                                            advixe: Loading result...  0 % Loading Files: Searching data files...          advixe: Loading result...  1 % Loading Files: Searching data files...          advixe: Loading result...  1 % Loading Files: Loading data files...            advixe: Loading result...  1 % Loading Files: Loading result...                advixe: Loading result...  2 % Loading Files: Loading result...                advixe: Loading result...  2 % Loading Files: Updating database...             advixe: Loading result...  3 % Loading Files: Updating database...             advixe: Loading result...  3 % Loading Files: Resolving symbols...             advixe: Loading result...  5 % Loading Files: Resolving symbols...             advixe: Loading result...  5 % Loading Files: Finding source/stack locations...advixe: Loading result... 11 % Loading Files: Finding source/stack locations...advixe: Loading result... 11 % Loading Files: Processing result states...      advixe: Loading result... 21 % Loading Files: Processing result states...      advixe: Loading result... 21 % Loading Files: Creating summary...              advixe: Loading result... 23 % Loading Files: Creating summary...              advixe: Loading result... 25 % Loading Files: Creating summary...              advixe: Loading result... 25 % Loading Files: Complete                         advixe: Loading result... 25 % Processing: Preparing Data For Display...       advixe: Loading result... 25 % done                                            
-
-Intel(R) Advisor Command Line Tool
-Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Opening result  0 %                                                    advixe: Opening result  0 % Finalizing results                                 advixe: Opening result 75 % Finalizing results                                 advixe: Opening result 75 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 100 % Preparing data for display of survey call tree    advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/dp002 -command stop.
-Usage: /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel <paramfile> <obstaclefile>
-advixe: Warning: No site annotations were executed, so no Dependencies issues (problems and messages) can be found. 
-advixe: Warning: The application returned a non-zero exit value.
-advixe: Loading result...  0 % done                                            advixe: Loading result...  0 % Loading Files: Searching data files...          advixe: Loading result...  1 % Loading Files: Searching data files...          advixe: Loading result...  1 % Loading Files: Loading data files...            advixe: Loading result...  1 % Loading Files: Loading result...                advixe: Loading result...  2 % Loading Files: Loading result...                advixe: Loading result...  2 % Loading Files: Updating database...             advixe: Loading result...  3 % Loading Files: Updating database...             advixe: Loading result...  3 % Loading Files: Resolving symbols...             advixe: Loading result...  5 % Loading Files: Resolving symbols...             advixe: Loading result...  5 % Loading Files: Finding source/stack locations...advixe: Loading result... 11 % Loading Files: Finding source/stack locations...advixe: Loading result... 11 % Loading Files: Processing result states...      advixe: Loading result... 21 % Loading Files: Processing result states...      advixe: Loading result... 21 % Loading Files: Creating summary...              advixe: Loading result... 23 % Loading Files: Creating summary...              advixe: Loading result... 25 % Loading Files: Creating summary...              advixe: Loading result... 25 % Loading Files: Complete                         advixe: Loading result... 25 % Processing: Preparing Data For Display...       advixe: Loading result... 25 % done                                            
-
-Intel(R) Advisor Command Line Tool
-Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Opening result  0 %                                                    advixe: Opening result  0 % Finalizing results                                 advixe: Opening result 75 % Finalizing results                                 advixe: Opening result 75 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 100 % Preparing data for display of survey call tree    advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/trc001 -command stop.
-Usage: /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel <paramfile> <obstaclefile>
-advixe: Warning: The application returned a non-zero exit value.
-advixe: Opening result  0 % done                                               advixe: Opening result  0 % Finalizing results                                 advixe: Opening result  0 % Finalizing the result                              advixe: Opening result  0 % Loading raw data to the database                   advixe: Opening result  0 % Loading 'tripcounts_9971_0.tcs' file               advixe: Opening result 11 % Loading 'tripcounts_9971_0.tcs' file               advixe: Opening result 11 % Updating precomputed scalar metrics                advixe: Opening result 14 % Updating precomputed scalar metrics                advixe: Opening result 14 % Processing profile metrics and debug information   advixe: Opening result 14 % Setting data model parameters                      advixe: Opening result 14 % Resolving module symbols                           advixe: Opening result 14 % Resolving information for dangling locations       advixe: Opening result 17 % Resolving information for dangling locations       advixe: Opening result 29 % Resolving information for dangling locations       advixe: Opening result 29 % Processing profile metrics and debug information   
-advixe: Error: Error 0x40000024 (No data) -- No data is collected. Possible reasons:
- - Workload is too small. No samples are collected.
- - The application environment is not specified correctly.
- - The executable file has been stripped so cannot be profiled with algorithm analysis types.
- See the Troubleshooting help topic for more details.
- Also consider checking the collection log for additional information. 
-advixe: Opening result 33 % Processing profile metrics and debug information   advixe: Opening result 33 % Setting data model parameters                      advixe: Opening result 34 % Setting data model parameters                      advixe: Opening result 34 % Precomputing frequently used data                  advixe: Opening result 34 % Precomputing frequently used data                  advixe: Opening result 46 % Precomputing frequently used data                  advixe: Opening result 46 % Updating precomputed scalar metrics                advixe: Opening result 49 % Updating precomputed scalar metrics                advixe: Opening result 49 % Discarding redundant overtime data                 advixe: Opening result 52 % Discarding redundant overtime data                 advixe: Opening result 52 % Saving the result                                  advixe: Opening result 56 % Saving the result                                  advixe: Opening result 60 % Saving the result                                  advixe: Opening result 74 % Saving the result                                  advixe: Opening result 74 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 99 % Preparing data for display of survey call tree     advixe: Opening result 99 % done                                               
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-
-Elapsed Time: < 0.01s
-Total CPU time: 0
-
+compute105
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.022176 (s)
+Elapsed Compute time:			5.233002 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			5.255179 (s)
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.005085 (s)
+Elapsed Compute time:			4.192570 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			4.197656 (s)
+8
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.005113 (s)
+Elapsed Compute time:			3.859323 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			3.864437 (s)
+9
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.005318 (s)
+Elapsed Compute time:			3.531548 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			3.536866 (s)
+10
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004720 (s)
+Elapsed Compute time:			3.229706 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			3.234427 (s)
+11
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.005352 (s)
+Elapsed Compute time:			3.050461 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			3.055814 (s)
+12
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.005155 (s)
+Elapsed Compute time:			2.799051 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.804207 (s)
+13
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004805 (s)
+Elapsed Compute time:			2.654918 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			2.659723 (s)
+14
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004713 (s)
+Elapsed Compute time:			2.493372 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.498086 (s)
+15
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.003489 (s)
+Elapsed Compute time:			2.361421 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.364911 (s)
+16
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004216 (s)
+Elapsed Compute time:			2.288630 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.292847 (s)
+17
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004186 (s)
+Elapsed Compute time:			2.197179 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.201366 (s)
+18
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004301 (s)
+Elapsed Compute time:			2.080796 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.085098 (s)
+19
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004218 (s)
+Elapsed Compute time:			2.016286 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			2.020505 (s)
+20
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004260 (s)
+Elapsed Compute time:			1.941516 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			1.945776 (s)
+21
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004327 (s)
+Elapsed Compute time:			1.871154 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			1.875482 (s)
+22
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.003914 (s)
+Elapsed Compute time:			1.818569 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			1.822484 (s)
+23
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004761 (s)
+Elapsed Compute time:			1.756916 (s)
+Elapsed Collate time:			0.000000 (s)
+Elapsed Total time:			1.761677 (s)
+24
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004091 (s)
+Elapsed Compute time:			1.711882 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			1.715974 (s)
+25
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.004305 (s)
+Elapsed Compute time:			1.661023 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			1.665329 (s)
+26
+==done==
+Reynolds number:		9.758102416992E+00
+Elapsed Init time:			0.003993 (s)
+Elapsed Compute time:			1.609781 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			1.613775 (s)
+27

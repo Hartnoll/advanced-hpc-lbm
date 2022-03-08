@@ -8,6 +8,7 @@
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
+#SBATCH --exclusive
 #SBATCH --output d2q9-bgk-parallel-128.out
 
 echo Running on host `hostname`
@@ -17,12 +18,72 @@ echo Slurm job ID is $SLURM_JOB_ID
 echo This job runs on the following machines:
 echo `echo $SLURM_JOB_NODELIST | uniq`
 
-advixe-cl --collect=survey  --project-dir ./advisor-data  ./d2q9-bgk-parallel
-advixe-cl --collect=map --project-dir ./advisor-data  ./d2q9-bgk-parallel
-advixe-cl --collect=dependencies --project-dir ./advisor-data  ./d2q9-bgk-parallel
-advixe-cl --collect=tripcounts  --project-dir ./advisor-data  ./d2q9-bgk-parallel
+
 #! Run the executable
-#./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
 #./d2q9-bgk-parallel input_128x256.params obstacles_128x256.dat
 #./d2q9-bgk-parallel input_256x256.params obstacles_256x256.dat
 #./d2q9-bgk-parallel input_1024x1024.params obstacles_1024x1024.dat
+
+OMP_NUM_THREADS=8
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 8
+OMP_NUM_THREADS=9
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 9
+OMP_NUM_THREADS=10
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 10
+OMP_NUM_THREADS=11
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 11
+OMP_NUM_THREADS=12
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 12
+OMP_NUM_THREADS=13
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 13
+OMP_NUM_THREADS=14
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 14
+OMP_NUM_THREADS=15
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 15
+OMP_NUM_THREADS=16
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 16
+OMP_NUM_THREADS=17
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 17
+OMP_NUM_THREADS=18
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 18
+OMP_NUM_THREADS=19
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 19
+OMP_NUM_THREADS=20
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 20
+OMP_NUM_THREADS=21
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 21
+OMP_NUM_THREADS=22
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 22
+OMP_NUM_THREADS=23
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 23
+OMP_NUM_THREADS=24
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 24
+OMP_NUM_THREADS=25
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 25
+OMP_NUM_THREADS=26
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 26
+OMP_NUM_THREADS=27
+./d2q9-bgk-parallel input_128x128.params obstacles_128x128.dat
+echo 27
+
+

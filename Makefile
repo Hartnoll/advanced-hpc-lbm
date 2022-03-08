@@ -3,7 +3,7 @@
 EXE=d2q9-bgk-parallel
 
 CC=icc
-CFLAGS= -std=c99 -Wall -Ofast -fast -fopenmp -g -Wl,-u__poll -Wl,-udlclose -Wl,-udlopen
+CFLAGS= -std=c99 -Wall -Ofast -qopenmp  
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
