@@ -24,7 +24,7 @@
       <workload>
        <targetName type="string">release</targetName>
        <launch_app.app_to_launch type="string">./d2q9-bgk-serial</launch_app.app_to_launch>
-       <launch_app.app_parameters type="string"></launch_app.app_parameters>
+       <launch_app.app_parameters type="string">input_128x128.params obstacles_128x128.dat</launch_app.app_parameters>
        <context>
         <contextValue>
          <id type="string">auto_finalize</id>

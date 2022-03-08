@@ -1,12 +1,12 @@
-Running on host compute216.bc4.acrc.priv
-Time is Tue Mar 8 15:18:58 GMT 2022
+Running on host compute101.bc4.acrc.priv
+Time is Tue Mar 8 15:48:59 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10119445
+Slurm job ID is 10119726
 This job runs on the following machines:
-compute216
-Intel(R) Advisor Command Line Tool
-Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Opening result  0 %                                                    advixe: Opening result  0 % Finalizing results                                 advixe: Opening result 75 % Finalizing results                                 advixe: Opening result 75 % Preparing data for display of survey call tree     advixe: Opening result 77 % Preparing data for display of survey call tree     advixe: Opening result 88 % Preparing data for display of survey call tree     advixe: Opening result 100 % Preparing data for display of survey call tree    advixe: Opening result 100 % done                                              
-advixe: Preparing frequently used data  0 % done                               advixe: Preparing frequently used data  0 % done                               
-advixe: Preparing frequently used data 100 % done                              
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/hs004 -command stop.
+compute101
+==done==
+Reynolds number:		3.717272567749E+01
+Elapsed Init time:			0.026351 (s)
+Elapsed Compute time:			39.344315 (s)
+Elapsed Collate time:			0.000001 (s)
+Elapsed Total time:			39.370667 (s)
