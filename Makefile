@@ -5,7 +5,11 @@
 EXE=d2q9-bgk-serial
 
 CC=icc
+<<<<<<< HEAD
 CFLAGS= -std=c99 -Wall -Ofast -fast -fopenmp -g -Wl,-u__poll -Wl,-udlclose -Wl,-udlopen
+=======
+CFLAGS= -std=c99 -Wall -Ofast
+>>>>>>> dd4550b645e5162e09282346bda8dfea6c38b1a7
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
