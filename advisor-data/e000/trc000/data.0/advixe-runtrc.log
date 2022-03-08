@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<log version="1.0" tool="runtool">
+
+<msg id="1" tool="runtool">
+  <type>log-start</type>
+  <arg>2022/03/08 13:57:44</arg>
+</msg>
+<msg id="2" tool="runtool">
+  <type>collector-starts</type>
+</msg>
+<msg id="3" tool="runtool">
+  <type>marker-file</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/trc000/trc000.advixe</arg>
+</msg>
+<msg id="4" tool="trc">
+  <type>PROCESS_START</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel</arg>
+  <arg>4718</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="5" tool="trc">
+  <type>PROCESS_ANALYSIS_MODE</type>
+  <arg>full</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="6" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel</arg>
+  <arg>0x400000</arg>
+  <arg>0x8a4dbf</arg>
+  <arg>yes</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="7" tool="trc">
+  <type>LOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <arg>0x7ffe857a7000</arg>
+  <arg>0x7ffe857a7e6c</arg>
+  <arg>no</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="8" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="9" tool="trc">
+  <type>UNLOAD_MODULE</type>
+  <arg>[vdso]</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="10" tool="trc">
+  <type>PROCESS_FINISH</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel</arg>
+  <arg>4718</arg>
+  <arg>0x1</arg>
+  <severity>INFO</severity>
+  <timestamp>Tue Mar  8 13:57:44 2022</timestamp>
+</msg>
+<msg id="11" tool="runtool">
+  <type>app-exit-code</type>
+  <arg>1</arg>
+</msg>
+<msg id="12" tool="runtool">
+  <type>marker-file</type>
+  <arg>/user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/trc000/trc000.advixe</arg>
+</msg>
+<msg id="13" tool="runtool">
+  <type>collector-done</type>
+</msg>
+<msg id="14" tool="runtool">
+  <type>log-end</type>
+  <arg>2022/03/08 13:57:47</arg>
+</msg>
+
+</log>
+

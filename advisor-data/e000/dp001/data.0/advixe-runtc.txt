@@ -1,0 +1,15 @@
+
+=== Start: [2022/03/08 13:57:37] === 
+Analysis started...
+Result file: /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/dp001/dp001.advixe 
+Found target process /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel (PID = 4663). Analysis started... 
+Loaded module: /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel. 
+Loaded module: [vdso]. 
+Unloaded module: /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel. 
+Unloaded module: [vdso]. 
+Process /user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-parallel (PID = 4663) has terminated. 
+Warning: No site annotations were executed, so no Dependencies issues (problems and messages) can be found. 
+Application exit code: 1 
+Result file: /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/dp001/dp001.advixe 
+Analysis completed
+=== End: [2022/03/08 13:57:42] === 
