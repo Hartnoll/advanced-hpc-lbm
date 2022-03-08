@@ -1,4 +1,0 @@
-# callstacks file version: 7
-#    rowid	    parent	       rva	 loop	 system	                                function	binary	instance_start_rva	instance_size	instance_end_rva	finst_rowid	roi	is_inlined	jit_method_id	tripcounts_roi	flops_roi	cachesim_roi	data_transfer_roi
-         1	        -1	     12157	    0	      0	                                  _start	/user/home/gz19577/advanced-hpc-lbm/d2q9-bgk-serial	12157	51	0	1	0	0	0	0	0	0	0
-         2	        -1	         0	    0	      0	                [Unknown stack frame(s)]	n/a	0	1	0	40	0	0	0	0	0	0	0

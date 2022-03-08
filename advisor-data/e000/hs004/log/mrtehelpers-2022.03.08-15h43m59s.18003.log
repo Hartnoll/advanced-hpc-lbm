@@ -1,7 +1,0 @@
-62 [46933256763136] INFO mrtehelpers.mrteenv <> - Product libs directory: /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2020_u4/advisor_2020.3.0.607294/lib64
-62 [46933256763136] INFO mrtehelpers.mrteenv <> - File mask: advixe_tpssmrte_clrprof*
-82 [46933256763136] INFO mrtehelpers.mrteenv <> - File name: lib
-82 [46933256763136] INFO mrtehelpers.mrteenv <> - File mask: advixe_tpssmrte_clrprof*
-99 [46933256763136] INFO mrtehelpers.mrteenv <> - File name: lib
-100 [46933256763136] ERROR mrtehelpers.mrteenv <> - Failed to init shared librarylib located at /mnt/storage/software/languages/intel/intel-parallel_studio_xe_2020_u4/advisor_2020.3.0.607294/lib64, at file: vcs/mrtehelpers3/src/mrteenv/mrte_profiling_initializer.cpp:485
-100 [46933256763136] ERROR mrtehelpers.mrteenv <> - CLR support is disabled because profiler GUID is empty, at file: vcs/mrtehelpers3/src/mrteenv/mrte_profiling_initializer.cpp:308

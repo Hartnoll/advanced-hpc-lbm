@@ -1,12 +1,11 @@
-Running on host compute101.bc4.acrc.priv
-Time is Tue Mar 8 15:48:59 GMT 2022
+Running on host compute216.bc4.acrc.priv
+Time is Tue Mar 8 16:11:54 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10119726
+Slurm job ID is 10119859
 This job runs on the following machines:
-compute101
-==done==
-Reynolds number:		3.717272567749E+01
-Elapsed Init time:			0.026351 (s)
-Elapsed Compute time:			39.344315 (s)
-Elapsed Collate time:			0.000001 (s)
-Elapsed Total time:			39.370667 (s)
+compute216
+advixe: Warning: The Roofline is a special batch mode of data collection. It runs two analyses one by one. There are Survey Analysis and Trip Counts Analysis with FLOP respectively.
+advixe: Starting command line: advixe-cl --collect survey --project-dir ./advi_results -- ./d2q9-bgk-serial input_128x128.params obstacles_128x128.dat
+Intel(R) Advisor Command Line Tool
+Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
+advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advi_results/e000/hs001 -command stop.
