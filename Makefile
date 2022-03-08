@@ -1,9 +1,11 @@
 # Makefile
 
+# Makefile
+
 EXE=d2q9-bgk-serial
 
 CC=icc
-CFLAGS= -std=c99 -Wall -Ofast
+CFLAGS= -std=c99 -Wall -Ofast -fast -g 
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
