@@ -1,11 +1,12 @@
-Running on host compute216.bc4.acrc.priv
-Time is Tue Mar 8 16:11:54 GMT 2022
+Running on host compute300.bc4.acrc.priv
+Time is Tue Mar 8 16:20:28 GMT 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10119859
+Slurm job ID is 10119943
 This job runs on the following machines:
-compute216
+compute300
 advixe: Warning: The Roofline is a special batch mode of data collection. It runs two analyses one by one. There are Survey Analysis and Trip Counts Analysis with FLOP respectively.
 advixe: Starting command line: advixe-cl --collect survey --project-dir ./advi_results -- ./d2q9-bgk-serial input_128x128.params obstacles_128x128.dat
 Intel(R) Advisor Command Line Tool
 Copyright (C) 2009-2020 Intel Corporation. All rights reserved.
-advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advi_results/e000/hs001 -command stop.
+advixe: Collection started. To stop the collection, either press CTRL-C or enter from another console window: advixe-cl -r /user/home/gz19577/advanced-hpc-lbm/advi_results/e000/hs004 -command stop.
+slurmstepd: error: *** JOB 10119943 ON compute300 CANCELLED AT 2022-03-08T16:21:45 ***
