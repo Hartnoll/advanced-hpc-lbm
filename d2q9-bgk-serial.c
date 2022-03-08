@@ -255,8 +255,8 @@ float timestep(const t_param params, t_speed* restrict cells, t_speed* restrict 
         tmp_cells[ii + jj*params.nx].speeds[6] = speed8;
         tmp_cells[ii + jj*params.nx].speeds[7] = speed5;
         tmp_cells[ii + jj*params.nx].speeds[8] = speed6;
-      }else
-      {
+      }
+      if(!isObstacle){
         /* compute local density total */
         const float local_density = (cells[ii + jj*params.nx].speeds[0] 
                                 + cells[x_w + jj*params.nx].speeds[1]
