@@ -1,0 +1,8 @@
+
+=== Start: [2022/03/08 14:08:37] === 
+Analysis started...
+Result file: /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/trc001/trc001.advixe 
+Application exit code: 1 
+Result file: /user/home/gz19577/advanced-hpc-lbm/advisor-data/e000/trc001/trc001.advixe 
+Analysis completed
+=== End: [2022/03/08 14:08:40] === 
