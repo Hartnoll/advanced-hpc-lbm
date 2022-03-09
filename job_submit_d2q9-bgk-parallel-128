@@ -9,7 +9,7 @@
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
 #SBATCH --exclusive
-#SBATCH --output d2q9-bgk-parallel-128.out
+#SBATCH --output d2q9-bgk-loop-128.out
 
 echo Running on host `hostname`
 echo Time is `date`
