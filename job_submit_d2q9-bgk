@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #SBATCH --nodes 1
-#SBATCH --ntasks-per-node 4
+#SBATCH --ntasks-per-node 18
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
 #SBATCH --job-name d2q9-bgk
-#SBATCH --time 00:05:00
+#SBATCH --time 00:10:00
 #SBATCH --output d2q9-bgk.out
 #SBATCH --exclusive
 module load languages/intel/2020-u4
