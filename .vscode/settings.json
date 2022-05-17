@@ -1,2 +1,10 @@
 {
+    "files.associations": {
+        "*.cpp": "cpp",
+        "*.pl": "prolog",
+        "*.tcc": "c",
+        "array": "c",
+        "bitset": "c",
+        "initializer_list": "c"
+    }
 }

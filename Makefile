@@ -2,8 +2,8 @@
 
 EXE=d2q9-bgk
 
-CC=mpiicc
-CFLAGS= -std=c99 -Wall -Ofast -g  
+CC=mpicc
+CFLAGS= -std=c99 -Wall -Ofast -g 
 LIBS = -lm
 
 FINAL_STATE_FILE=./final_state.dat
