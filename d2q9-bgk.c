@@ -115,7 +115,7 @@ float timestep(const t_param params, t_speed *cells, t_speed *tmp_cells, int *ob
 int accelerate_flow(const t_param params, t_speed *cells, int *obstacles, int jj);
 int write_values(const t_param params, t_speed *cells, int *obstacles, float *av_vels);
 
-/* finalise, including freeing up allocated memory */
+/* finalise, including _mm_freeing up allocated memory */
 int finalise(const t_param *params, t_speed *final_cells_ptr, t_speed *tmp_cells_ptr, t_speed *cells_ptr,
              int **obstacles_ptr, float **av_vels_ptr, float **sendData, float **recvData, float **sendDataLarge, float **recvDataLarge,
              int **recvcounts, int **displs);
@@ -236,105 +236,106 @@ int main(int argc, char *argv[])
   comp_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   col_tic = comp_toc;
 
-  // int displs2[params.size];
-  // int recvcounts2[params.size];
-  // for (int i = 0; i < size; i++)
-  // {
-  //   if (i < params.ny % size)
-  //   {
-  //     recvcounts2[i] = ((params.ny/size) + 1) * params.nx;
-  //   }
-  //   else
-  //   {
-  //     recvcounts2[i] = (params.ny / size) * params.nx;
-  //   }
-  //   int dispsum = 0;
-  //   for (int a = 0; a < i; a++)
-  //   {
-  //     dispsum += recvcounts2[a]; 
-  //   }
-  //   displs2[i] = dispsum;
-  // }
-  // MPI_Gatherv(&(local_cells.speeds0[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds0, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds1[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds1, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds2[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds2, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds3[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds3, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds4[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds4, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds5[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds5, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds6[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds6, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds7[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds7, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
-  // MPI_Gatherv(&(local_cells.speeds8[params.nx]), (params.block_size * params.nx), MPI_FLOAT, cells.speeds8, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  int displs2[params.size];
+  int recvcounts2[params.size];
+  for (int i = 0; i < size; i++)
+  {
+    if (i < params.ny % size)
+    {
+      recvcounts2[i] = ((params.ny/size) + 1) * params.nx;
+    }
+    else
+    {
+      recvcounts2[i] = (params.ny / size) * params.nx;
+    }
+    int dispsum = 0;
+    for (int a = 0; a < i; a++)
+    {
+      dispsum += recvcounts2[a]; 
+    }
+    displs2[i] = dispsum;
+  }
+  MPI_Gatherv(&(cells.speeds0[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds0, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds1[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds1, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds2[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds2, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds3[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds3, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds4[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds4, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds5[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds5, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds6[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds6, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds7[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds7, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
+  MPI_Gatherv(&(cells.speeds8[params.nx]), (params.block_size * params.nx), MPI_FLOAT, final_cells.speeds8, recvcounts2, displs2, MPI_FLOAT, 0, MPI_COMM_WORLD);
 
   
-  if(rank != 0)
-  {
-    for (int ii = 0; ii < (params.nx * params.block_size); ii++)
-    {
-      sendDataLarge[ii*9 + 0] = cells.speeds0[params.nx + ii]; 
-      sendDataLarge[ii*9 + 1] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 2] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 3] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 4] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 5] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 6] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 7] = cells.speeds1[params.nx + ii];
-      sendDataLarge[ii*9 + 8] = cells.speeds1[params.nx + ii];
-    }
-    MPI_Send(sendDataLarge, (params.nx * params.block_size * 9), MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
-  }
-  else 
-  {
-    int offset = params.nx * params.block_size;
-    for (int src = 1; src < size; src++)
-    {
-      int recvSize;
-      if(params.remain == 0 || src < params.remain) recvSize = (params.nx * params.block_size * 9);
-      //else if (src < params.remain) recvSize = (params.nx * params.block_size * 9);
-      else recvSize = (params.nx*(params.block_size - 1) *9);
-      MPI_Recv(recvDataLarge, recvSize, MPI_FLOAT, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-      for (int ii =0; ii < recvSize/9; ii++)
-      {
-        final_cells.speeds0[offset + ii] = recvDataLarge[ii*9 + 0];
-        final_cells.speeds1[offset + ii] = recvDataLarge[ii*9 + 1];
-        final_cells.speeds2[offset + ii] = recvDataLarge[ii*9 + 2];
-        final_cells.speeds3[offset + ii] = recvDataLarge[ii*9 + 3];
-        final_cells.speeds4[offset + ii] = recvDataLarge[ii*9 + 4];
-        final_cells.speeds5[offset + ii] = recvDataLarge[ii*9 + 5];
-        final_cells.speeds6[offset + ii] = recvDataLarge[ii*9 + 6];
-        final_cells.speeds7[offset + ii] = recvDataLarge[ii*9 + 7];
-        final_cells.speeds8[offset + ii] = recvDataLarge[ii*9 + 8];
-      }
-      offset += recvSize/9;
-    }
-    // Place rank 0's local cells into the final cells.
-    for (int ii = 0; ii < params.nx * params.block_size; ii++)
-    {
-      final_cells.speeds0[ii] = cells.speeds0[params.nx + ii];
-      final_cells.speeds1[ii] = cells.speeds1[params.nx + ii];
-      final_cells.speeds2[ii] = cells.speeds2[params.nx + ii];
-      final_cells.speeds3[ii] = cells.speeds3[params.nx + ii];
-      final_cells.speeds4[ii] = cells.speeds4[params.nx + ii];
-      final_cells.speeds5[ii] = cells.speeds5[params.nx + ii];
-      final_cells.speeds6[ii] = cells.speeds6[params.nx + ii];
-      final_cells.speeds7[ii] = cells.speeds7[params.nx + ii];
-      final_cells.speeds8[ii] = cells.speeds8[params.nx + ii];
-    }
-  }
+  // if(rank != 0)
+  // {
+  //   for (int ii = 0; ii < (params.nx * params.block_size); ii++)
+  //   {
+  //     sendDataLarge[ii*9 + 0] = cells.speeds0[params.nx + ii]; 
+  //     sendDataLarge[ii*9 + 1] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 2] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 3] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 4] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 5] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 6] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 7] = cells.speeds1[params.nx + ii];
+  //     sendDataLarge[ii*9 + 8] = cells.speeds1[params.nx + ii];
+  //   }
+  //   MPI_Send(sendDataLarge, (params.nx * params.block_size * 9), MPI_FLOAT, 0, 0, MPI_COMM_WORLD);
+  // }
+  // else 
+  // {
+  //   int offset = params.nx * params.block_size;
+  //   for (int src = 1; src < size; src++)
+  //   {
+  //     int recvSize;
+  //     if(params.remain == 0 || src < params.remain) recvSize = (params.nx * params.block_size * 9);
+  //     //else if (src < params.remain) recvSize = (params.nx * params.block_size * 9);
+  //     else recvSize = (params.nx*(params.block_size - 1) *9);
+  //     MPI_Recv(recvDataLarge, recvSize, MPI_FLOAT, src, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+  //     for (int ii =0; ii < recvSize/9; ii++)
+  //     {
+  //       final_cells.speeds0[offset + ii] = recvDataLarge[ii*9 + 0];
+  //       final_cells.speeds1[offset + ii] = recvDataLarge[ii*9 + 1];
+  //       final_cells.speeds2[offset + ii] = recvDataLarge[ii*9 + 2];
+  //       final_cells.speeds3[offset + ii] = recvDataLarge[ii*9 + 3];
+  //       final_cells.speeds4[offset + ii] = recvDataLarge[ii*9 + 4];
+  //       final_cells.speeds5[offset + ii] = recvDataLarge[ii*9 + 5];
+  //       final_cells.speeds6[offset + ii] = recvDataLarge[ii*9 + 6];
+  //       final_cells.speeds7[offset + ii] = recvDataLarge[ii*9 + 7];
+  //       final_cells.speeds8[offset + ii] = recvDataLarge[ii*9 + 8];
+  //     }
+  //     offset += recvSize/9;
+  //   }
+  //   // Place rank 0's local cells into the final cells.
+  //   for (int ii = 0; ii < params.nx * params.block_size; ii++)
+  //   {
+  //     final_cells.speeds0[ii] = cells.speeds0[params.nx + ii];
+  //     final_cells.speeds1[ii] = cells.speeds1[params.nx + ii];
+  //     final_cells.speeds2[ii] = cells.speeds2[params.nx + ii];
+  //     final_cells.speeds3[ii] = cells.speeds3[params.nx + ii];
+  //     final_cells.speeds4[ii] = cells.speeds4[params.nx + ii];
+  //     final_cells.speeds5[ii] = cells.speeds5[params.nx + ii];
+  //     final_cells.speeds6[ii] = cells.speeds6[params.nx + ii];
+  //     final_cells.speeds7[ii] = cells.speeds7[params.nx + ii];
+  //     final_cells.speeds8[ii] = cells.speeds8[params.nx + ii];
+  //   }
+  // }
 
   /* Total/collate time stops here.*/
   gettimeofday(&timstr, NULL);
   col_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   tot_toc = col_toc;
 
-  /* write final values and free memory */
+  /* write final values and _mm_free memory */
   if (rank == 0)
   {
-    printf("==done==\n");
-    printf("Reynolds number:\t\t%.12E\n", calc_reynolds(params, &final_cells, obstacles));
-    printf("Elapsed Init time:\t\t\t%.6lf (s)\n", init_toc - init_tic);
-    printf("Elapsed Compute time:\t\t\t%.6lf (s)\n", comp_toc - comp_tic);
-    printf("Elapsed Collate time:\t\t\t%.6lf (s)\n", col_toc - col_tic);
-    printf("Elapsed Total time:\t\t\t%.6lf (s)\n", tot_toc - tot_tic);
+    // printf("==done==\n");
+    // printf("Reynolds number:\t\t%.12E\n", calc_reynolds(params, &final_cells, obstacles));
+    // printf("Elapsed Init time:\t\t\t%.6lf (s)\n", init_toc - init_tic);
+    // printf("Elapsed Compute time:\t\t\t%.6lf (s)\n", comp_toc - comp_tic);
+    // printf("Elapsed Collate time:\t\t\t%.6lf (s)\n", col_toc - col_tic);
+    // printf("Elapsed Total time:\t\t\t%.6lf (s)\n", tot_toc - tot_tic);
+    printf("%.6lf", tot_toc - tot_tic);
     write_values(params, &final_cells, obstacles, av_vels);
   }
   finalise(&params, &final_cells, &tmp_cells, &cells, &obstacles, &av_vels, &sendData, &recvData, &sendDataLarge, &recvDataLarge, &recvcounts, &displs);
@@ -437,52 +438,7 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
   }
 
 
-  // MPI_Sendrecv(&cells->speeds0[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 0,
-  //              &cells->speeds0[0], params.nx, MPI_FLOAT, down_rank, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds1[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 1,
-  //              &cells->speeds1[0], params.nx, MPI_FLOAT, down_rank, 1, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds2[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 2,
-  //              &cells->speeds2[0], params.nx, MPI_FLOAT, down_rank, 2, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds3[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 3,
-  //              &cells->speeds3[0], params.nx, MPI_FLOAT, down_rank, 3, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds4[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 4,
-  //              &cells->speeds4[0], params.nx, MPI_FLOAT, down_rank, 4, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds5[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 5,
-  //              &cells->speeds5[0], params.nx, MPI_FLOAT, down_rank, 5, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds6[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 6,
-  //              &cells->speeds6[0], params.nx, MPI_FLOAT, down_rank, 6, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds7[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 7,
-  //              &cells->speeds7[0], params.nx, MPI_FLOAT, down_rank, 7, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  // MPI_Sendrecv(&cells->speeds8[block_size * params.nx], params.nx, MPI_FLOAT, up_rank, 8,
-  //              &cells->speeds8[0], params.nx, MPI_FLOAT, down_rank, 8, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
-  // MPI_Sendrecv(&cells->speeds0[params.nx], params.nx, MPI_FLOAT, down_rank, 9,
-  //              &cells->speeds0[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 9, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds1[params.nx], params.nx, MPI_FLOAT, down_rank, 10,
-  //              &cells->speeds1[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 10, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds2[params.nx], params.nx, MPI_FLOAT, down_rank, 11,
-  //              &cells->speeds2[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 11, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds3[params.nx], params.nx, MPI_FLOAT, down_rank, 12,
-  //              &cells->speeds3[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 12, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds4[params.nx], params.nx, MPI_FLOAT, down_rank, 13,
-  //              &cells->speeds4[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 13, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds5[params.nx], params.nx, MPI_FLOAT, down_rank, 14,
-  //              &cells->speeds5[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 14, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds6[params.nx], params.nx, MPI_FLOAT, down_rank, 15,
-  //              &cells->speeds6[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 15, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //
-  // MPI_Sendrecv(&cells->speeds7[params.nx], params.nx, MPI_FLOAT, down_rank, 16,
-  //              &cells->speeds7[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 16, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-  //  
-  // MPI_Sendrecv(&cells->speeds8[params.nx], params.nx, MPI_FLOAT, down_rank, 17,
-  //              &cells->speeds8[(block_size + 1) * params.nx], params.nx, MPI_FLOAT, up_rank, 17, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-
+  
 
   const float w0 = 4.f / 9.f;  /* weighting factor */
   const float w1 = 1.f / 9.f;  /* weighting factor */
@@ -490,26 +446,26 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
 
   float tot_u = 0.f;
   int tot_cells = 0;
-  // __assume((params.nx) % 2 == 0);
-  // __assume((params.ny) % 2 == 0);
-  // __assume_aligned(cells->speeds0, 64);
-  // __assume_aligned(cells->speeds1, 64);
-  // __assume_aligned(cells->speeds2, 64);
-  // __assume_aligned(cells->speeds3, 64);
-  // __assume_aligned(cells->speeds4, 64);
-  // __assume_aligned(cells->speeds5, 64);
-  // __assume_aligned(cells->speeds6, 64);
-  // __assume_aligned(cells->speeds7, 64);
-  // __assume_aligned(cells->speeds8, 64);
-  // __assume_aligned(tmp_cells->speeds0, 64);
-  // __assume_aligned(tmp_cells->speeds1, 64);
-  // __assume_aligned(tmp_cells->speeds2, 64);
-  // __assume_aligned(tmp_cells->speeds3, 64);
-  // __assume_aligned(tmp_cells->speeds4, 64);
-  // __assume_aligned(tmp_cells->speeds5, 64);
-  // __assume_aligned(tmp_cells->speeds6, 64);
-  // __assume_aligned(tmp_cells->speeds7, 64);
-  // __assume_aligned(tmp_cells->speeds8, 64);
+  __assume((params.nx) % 2 == 0);
+  __assume((params.ny) % 2 == 0);
+  __assume_aligned(cells->speeds0, 64);
+  __assume_aligned(cells->speeds1, 64);
+  __assume_aligned(cells->speeds2, 64);
+  __assume_aligned(cells->speeds3, 64);
+  __assume_aligned(cells->speeds4, 64);
+  __assume_aligned(cells->speeds5, 64);
+  __assume_aligned(cells->speeds6, 64);
+  __assume_aligned(cells->speeds7, 64);
+  __assume_aligned(cells->speeds8, 64);
+  __assume_aligned(tmp_cells->speeds0, 64);
+  __assume_aligned(tmp_cells->speeds1, 64);
+  __assume_aligned(tmp_cells->speeds2, 64);
+  __assume_aligned(tmp_cells->speeds3, 64);
+  __assume_aligned(tmp_cells->speeds4, 64);
+  __assume_aligned(tmp_cells->speeds5, 64);
+  __assume_aligned(tmp_cells->speeds6, 64);
+  __assume_aligned(tmp_cells->speeds7, 64);
+  __assume_aligned(tmp_cells->speeds8, 64);
 
   for (int jj = 1; jj <= params.block_size; jj++)
   {
@@ -613,16 +569,16 @@ int accelerate_flow(const t_param params, t_speed *restrict cells, int *restrict
   /* compute weighting factors */
   const float w1 = params.density * params.accel / 9.f;
   const float w2 = params.density * params.accel / 36.f;
-  // __assume((params.nx) % 2 == 0);
-  // __assume_aligned(cells->speeds0, 64);
-  // __assume_aligned(cells->speeds1, 64);
-  // __assume_aligned(cells->speeds2, 64);
-  // __assume_aligned(cells->speeds3, 64);
-  // __assume_aligned(cells->speeds4, 64);
-  // __assume_aligned(cells->speeds5, 64);
-  // __assume_aligned(cells->speeds6, 64);
-  // __assume_aligned(cells->speeds7, 64);
-  // __assume_aligned(cells->speeds8, 64);
+  __assume((params.nx) % 2 == 0);
+  __assume_aligned(cells->speeds0, 64);
+  __assume_aligned(cells->speeds1, 64);
+  __assume_aligned(cells->speeds2, 64);
+  __assume_aligned(cells->speeds3, 64);
+  __assume_aligned(cells->speeds4, 64);
+  __assume_aligned(cells->speeds5, 64);
+  __assume_aligned(cells->speeds6, 64);
+  __assume_aligned(cells->speeds7, 64);
+  __assume_aligned(cells->speeds8, 64);
   /* modify the 2nd row of the grid */
   //#pragma omp simd
   for (int ii = 0; ii < params.nx; ii++)
@@ -762,42 +718,42 @@ int initialise(const char *paramfile, const char *obstaclefile,
   /* main grid */
   if(params->rank == 0)
   {
-    final_cells_ptr->speeds0 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds1 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds2 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds3 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds4 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds5 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds6 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds7 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
-    final_cells_ptr->speeds8 = (float*)malloc(sizeof(float) * (params->ny * params->nx));
+    final_cells_ptr->speeds0 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds1 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds2 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds3 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds4 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds5 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds6 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds7 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
+    final_cells_ptr->speeds8 = (float*)_mm_malloc(sizeof(float) * (params->ny * params->nx), 64);
   }
 
-  cells_ptr->speeds0 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds1 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds2 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds3 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds4 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds5 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds6 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds7 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  cells_ptr->speeds8 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
+  cells_ptr->speeds0 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds1 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds2 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds3 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds4 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds5 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds6 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds7 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  cells_ptr->speeds8 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
 
   /* 'helper' grid, used as scratch space */
-  tmp_cells_ptr->speeds0 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds1 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds2 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds3 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds4 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds5 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds6 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds7 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
-  tmp_cells_ptr->speeds8 = (float*)malloc(sizeof(float) * ((params->block_size + 2) * params->nx));
+  tmp_cells_ptr->speeds0 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds1 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds2 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds3 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds4 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds5 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds6 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds7 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
+  tmp_cells_ptr->speeds8 = (float*)_mm_malloc(sizeof(float) * ((params->block_size + 2) * params->nx), 64);
 
   // if (*tmp_cells_ptr == NULL) die("cannot allocate memory for tmp_cells", __LINE__, __FILE__);
 
   /* the map of obstacles */
-  *obstacles_ptr = malloc(sizeof(int) * (params->ny * params->nx));
+  *obstacles_ptr = _mm_malloc(sizeof(int) * (params->ny * params->nx), 64);
 
   if (*obstacles_ptr == NULL)
     die("cannot allocate column memory for obstacles", __LINE__, __FILE__);
@@ -868,16 +824,16 @@ int initialise(const char *paramfile, const char *obstaclefile,
   ** allocate space to hold a record of the avarage velocities computed
   ** at each timestep
   */
-  *av_vels_ptr = (float*)malloc(sizeof(float) * params->maxIters);
+  *av_vels_ptr = (float*)_mm_malloc(sizeof(float) * params->maxIters, 64);
 
-  *recvData = (float*)malloc(sizeof(float) * (params->nx * 9));
-  *sendData = (float*)malloc(sizeof(float) * (params->nx * 9));
+  *recvData = (float*)_mm_malloc(sizeof(float) * (params->nx * 9), 64);
+  *sendData = (float*)_mm_malloc(sizeof(float) * (params->nx * 9), 64);
 
-  *recvDataLarge = (float*)malloc(sizeof(float) * (params->nx * params->block_size * NSPEEDS)); 
-  *sendDataLarge = (float*)malloc(sizeof(float) * (params->nx * params->block_size * NSPEEDS));
+  *recvDataLarge = (float*)_mm_malloc(sizeof(float) * (params->nx * params->block_size * NSPEEDS), 64); 
+  *sendDataLarge = (float*)_mm_malloc(sizeof(float) * (params->nx * params->block_size * NSPEEDS), 64);
 
-  // *recvcounts = malloc(sizeof(int) * params->size);
-  // *displs = malloc(sizeof(int) * params->size);
+  // *recvcounts = _mm_malloc(sizeof(int) * params->size);
+  // *displs = _mm_malloc(sizeof(int) * params->size);
 
   return EXIT_SUCCESS;
 }
@@ -887,63 +843,63 @@ int finalise(const t_param *params, t_speed *final_cells_ptr, t_speed *tmp_cells
              int **recvcounts, int **displs)
 {
   /*
-  ** free up allocated memory
+  ** _mm_free up allocated memory
   */
   if (params->rank == 0)
   {
-    free(final_cells_ptr->speeds0);
-    free(final_cells_ptr->speeds1);
-    free(final_cells_ptr->speeds2);
-    free(final_cells_ptr->speeds3);
-    free(final_cells_ptr->speeds4);
-    free(final_cells_ptr->speeds5);
-    free(final_cells_ptr->speeds6);
-    free(final_cells_ptr->speeds7);
-    free(final_cells_ptr->speeds8);
+    _mm_free(final_cells_ptr->speeds0);
+    _mm_free(final_cells_ptr->speeds1);
+    _mm_free(final_cells_ptr->speeds2);
+    _mm_free(final_cells_ptr->speeds3);
+    _mm_free(final_cells_ptr->speeds4);
+    _mm_free(final_cells_ptr->speeds5);
+    _mm_free(final_cells_ptr->speeds6);
+    _mm_free(final_cells_ptr->speeds7);
+    _mm_free(final_cells_ptr->speeds8);
   }
 
-  free(tmp_cells_ptr->speeds0);
-  free(tmp_cells_ptr->speeds1);
-  free(tmp_cells_ptr->speeds2);
-  free(tmp_cells_ptr->speeds3);
-  free(tmp_cells_ptr->speeds4);
-  free(tmp_cells_ptr->speeds5);
-  free(tmp_cells_ptr->speeds6);
-  free(tmp_cells_ptr->speeds7);
-  free(tmp_cells_ptr->speeds8);
+  _mm_free(tmp_cells_ptr->speeds0);
+  _mm_free(tmp_cells_ptr->speeds1);
+  _mm_free(tmp_cells_ptr->speeds2);
+  _mm_free(tmp_cells_ptr->speeds3);
+  _mm_free(tmp_cells_ptr->speeds4);
+  _mm_free(tmp_cells_ptr->speeds5);
+  _mm_free(tmp_cells_ptr->speeds6);
+  _mm_free(tmp_cells_ptr->speeds7);
+  _mm_free(tmp_cells_ptr->speeds8);
 
-  free(cells_ptr->speeds0);
-  free(cells_ptr->speeds1);
-  free(cells_ptr->speeds2);
-  free(cells_ptr->speeds3);
-  free(cells_ptr->speeds4);
-  free(cells_ptr->speeds5);
-  free(cells_ptr->speeds6);
-  free(cells_ptr->speeds7);
-  free(cells_ptr->speeds8);
+  _mm_free(cells_ptr->speeds0);
+  _mm_free(cells_ptr->speeds1);
+  _mm_free(cells_ptr->speeds2);
+  _mm_free(cells_ptr->speeds3);
+  _mm_free(cells_ptr->speeds4);
+  _mm_free(cells_ptr->speeds5);
+  _mm_free(cells_ptr->speeds6);
+  _mm_free(cells_ptr->speeds7);
+  _mm_free(cells_ptr->speeds8);
 
-  free(*obstacles_ptr);
+  _mm_free(*obstacles_ptr);
   *obstacles_ptr = NULL;
 
-  free(*av_vels_ptr);
+  _mm_free(*av_vels_ptr);
   *av_vels_ptr = NULL;
 
-  free(*sendData);
+  _mm_free(*sendData);
   *sendData = NULL;
 
-  free(*recvData);
+  _mm_free(*recvData);
   *recvData = NULL;
 
-  free(*sendDataLarge);
+  _mm_free(*sendDataLarge);
   *sendDataLarge = NULL;
 
-  free(*recvDataLarge);
+  _mm_free(*recvDataLarge);
   *recvDataLarge = NULL;
 
-  // free(*recvcounts);
+  // _mm_free(*recvcounts);
   // *recvcounts = NULL;
 
-  // free(*displs);
+  // _mm_free(*displs);
   // *displs = NULL;
 
   return EXIT_SUCCESS;

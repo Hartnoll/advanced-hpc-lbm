@@ -1,72 +1,11 @@
 Intel(R) Parallel Studio XE 2020 Update 4 for Linux*
 Copyright 2009-2020 Intel Corporation.
 Running on host compute100.bc4.acrc.priv
-Time is Fri May 13 11:52:00 BST 2022
+Time is Wed May 18 01:12:03 BST 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10339070
+Slurm job ID is 10347665
 This job runs on the following machines:
 compute[100-103]
-Intel(R) Parallel Studio XE 2020 Update 4 for Linux*
-Copyright 2009-2020 Intel Corporation.
-Running on host compute104.bc4.acrc.priv
-Time is Fri May 13 11:52:04 BST 2022
-Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10339075
-This job runs on the following machines:
-compute[104-107]
-	5.154893
-	5.061544
-	4.743331
-	4.777401
-	4.831140
-	4.710565
-	4.679775
-	4.750782
-	4.511038
-	4.558994
-	4.969463
-	5.021075
-	4.638815
-	4.693008
-	4.490502
-	4.594118
-	4.211762
-	4.235749
-	4.229751
-	4.354136
-	4.582588
-	4.732896
-	4.327325
-	4.479251
-	4.179413
-	4.242022
-	4.126040
-	4.094067
-	3.884950
-	3.963197
-	3.835774
-	4.108608
-	3.898844
-	3.901094
-	3.921292
-	4.038929
-	3.793536
-	3.848878
-	3.884583
-	3.775405
-	3.740040
-	3.908278
-	3.810861
-	3.715634
-	3.900937
-	3.758969
-	3.716403
-	3.777922
-	3.729977
-	4.140037
-	3.964994
-	3.726546
-	3.954325
-	3.850349
-	3.795112
-	3.905742
+16.74078516.14780615.736296srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 10347665.3 ON compute100 CANCELLED AT 2022-05-18T01:13:05 ***
+slurmstepd: error: *** JOB 10347665 ON compute100 CANCELLED AT 2022-05-18T01:13:05 ***

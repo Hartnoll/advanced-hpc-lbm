@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SBATCH --nodes 1
-#SBATCH --ntasks-per-node 2
+#SBATCH --ntasks-per-node 3
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
@@ -19,7 +19,7 @@ echo This job runs on the following machines:
 echo `echo $SLURM_JOB_NODELIST | uniq`
 
 #! Run the executable
-srun --mpi=pmi2 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#srun --mpi=pmi2 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
 # srun --mpi=pmi2 ./d2q9-bgk input_128x256.params obstacles_128x256.dat
-# srun --mpi=pmi2 ./d2q9-bgk input_256x256.params obstacles_256x256.dat
+srun --mpi=pmi2 ./d2q9-bgk input_256x256.params obstacles_256x256.dat
 # srun --mpi=pmi2 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
