@@ -200,27 +200,20 @@ int main(int argc, char *argv[])
   gettimeofday(&timstr, NULL);
   init_toc = timstr.tv_sec + (timstr.tv_usec / 1000000.0);
   comp_tic = init_toc;
-  const float tot_cells = total_cells(obstacles, params);
-
+  const float tot_cells = 1/total_cells(obstacles, params);
   for (int tt = 0; tt < params.maxIters; tt++)
   {
+
+    av_vels[tt] = timestep(params, &cells, &tmp_cells, obstacles, sendData, recvData);
     // if (rank == 0)
     // {
-    //   if (tt == 0)
-    //   {
-    //     printrankspeed(&params, &local_cells, 0, "random.csv");
-    //   }
+    //   MPI_Reduce(MPI_IN_PLACE, &tot_u, 1, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
+    //   av_vels[tt] = tot_u / tot_cells;
     // }
-    float tot_u = timestep(params, &cells, &tmp_cells, obstacles, sendData, recvData);
-    if (rank == 0)
-    {
-      MPI_Reduce(MPI_IN_PLACE, &tot_u, 1, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
-      av_vels[tt] = tot_u / tot_cells;
-    }
-    else
-    {
-      MPI_Reduce(&tot_u, NULL, 1, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
-    }
+    // else
+    // {
+    //   MPI_Reduce(&tot_u, NULL, 1, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
+    // }
     t_speed temp = tmp_cells;
     tmp_cells = cells;
     cells = temp;
@@ -229,6 +222,18 @@ int main(int argc, char *argv[])
     printf("av velocity: %.12E\n", av_vels[tt]);
     printf("tot density: %.12E\n", total_density(params, cells));
 #endif
+  }
+  if (rank == 0)
+  {
+    MPI_Reduce(MPI_IN_PLACE, av_vels, params.maxIters, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
+    for (int tt =0; tt < params.maxIters; tt++)
+    {
+      av_vels[tt] = av_vels[tt] * tot_cells;
+    }
+  }
+  else
+  {
+    MPI_Reduce(av_vels, NULL, params.maxIters, MPI_FLOAT, MPI_SUM, 0, MPI_COMM_WORLD);
   }
 
   /* Compute time stops here, collate time starts*/
@@ -335,7 +340,7 @@ int main(int argc, char *argv[])
     // printf("Elapsed Compute time:\t\t\t%.6lf (s)\n", comp_toc - comp_tic);
     // printf("Elapsed Collate time:\t\t\t%.6lf (s)\n", col_toc - col_tic);
     // printf("Elapsed Total time:\t\t\t%.6lf (s)\n", tot_toc - tot_tic);
-    printf("%.6lf", tot_toc - tot_tic);
+    printf("%.2lf \n", tot_toc - tot_tic);
     write_values(params, &final_cells, obstacles, av_vels);
   }
   finalise(&params, &final_cells, &tmp_cells, &cells, &obstacles, &av_vels, &sendData, &recvData, &sendDataLarge, &recvDataLarge, &recvcounts, &displs);
@@ -469,6 +474,7 @@ float timestep(const t_param params, t_speed *restrict cells, t_speed *restrict 
 
   for (int jj = 1; jj <= params.block_size; jj++)
   {
+    #pragma omp simd
     for (int ii = 0; ii < params.nx; ii++)
     {
       /* determine indices of axis-direction neighbours
@@ -764,6 +770,7 @@ int initialise(const char *paramfile, const char *obstaclefile,
   float w2 = params->density / 36.f;
   for (int jj = 0; jj < params->ny; jj++)
   {
+    #pragma omp simd
     for (int ii = 0; ii < params->nx; ii++)
     {
       (*obstacles_ptr)[ii + jj * params->nx] = 0;
@@ -771,6 +778,7 @@ int initialise(const char *paramfile, const char *obstaclefile,
   }
   for (int jj = 1; jj < (params->block_size + 1); jj++)
   {
+    #pragma omp simd
     for (int ii = 0; ii < params->nx; ii++)
     {
         /* centre */
@@ -1015,27 +1023,5 @@ void usage(const char *exe)
   exit(EXIT_FAILURE);
 }
 
-void printrankspeed(t_param* params, t_speed* cells, int rank, char* PrintType){
 
-  FILE*   fp;                     /* file pointer */
-  fp = fopen(PrintType,"w");
-  if (fp == NULL){
-      die("The file could mot be open for some reason", __LINE__, __FILE__);
-  }
 
-  for (int jj = 1; jj < params->block_size+1; jj++){
-      for (int ii = 0; ii < params->nx; ii++)
-      {   
-          if (ii == 0){
-              fprintf(fp,"%.6lf,|,",cells->speeds5[ii + jj*(params->nx)]);
-          }else if (ii == params->nx -1){
-              fprintf(fp,"|,%.6lf\n",cells->speeds5[ii + jj*(params->nx)]);
-          }else {
-              fprintf(fp,"%.6lf,",cells->speeds5[ii + jj*(params->nx)]);
-          }
-
-      }            
-  
-    fclose(fp);
-  }
-}

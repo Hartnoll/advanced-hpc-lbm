@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#SBATCH --nodes 1
-#SBATCH --ntasks-per-node 28
+#SBATCH --nodes 4
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
+#SBATCH --exclude compute[100,101,102,103,104]
 #SBATCH --job-name d2q9-bgk
-#SBATCH --time 00:10:00
+#SBATCH --time 00:40:00
 #SBATCH --output d2q9-bgk-4.out
 #SBATCH --exclusive
 module load languages/intel/2020-u4
@@ -19,70 +19,38 @@ echo This job runs on the following machines:
 echo `echo $SLURM_JOB_NODELIST | uniq`
 
 #! Run the executable
-srun --mpi=pmi2 -n 1 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+#srun --mpi=pmi2 -n 1 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
 # srun --mpi=pmi2 ./d2q9-bgk input_128x256.params obstacles_128x256.dat
 # srun --mpi=pmi2 ./d2q9-bgk input_256x256.params obstacles_256x256.dat
 # srun --mpi=pmi2 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
 
-srun --mpi=pmi2 -n 2 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 3 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 4 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 5 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 6 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 7 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 8 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 9 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 10 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 11 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 12 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 13 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 14 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 15 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 16 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 17 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 18 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 19 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 20 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 21 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 22 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 23 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 24 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 25 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 26 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 27 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 28 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-#SBATCH --nodes 2
-srun --mpi=pmi2 -n 29 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 30 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 31 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 32 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 33 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 34 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 35 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 36 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 37 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 38 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 39 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 40 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 41 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 42 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 43 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 44 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 45 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 46 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 47 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 48 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 49 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 50 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 51 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 52 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 53 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 54 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 55 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 56 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 57 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 58 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 59 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
-srun --mpi=pmi2 -n 60 ./d2q9-bgk input_128x128.params obstacles_128x128.dat
+srun --mpi=pmi2 -N 4 -n 85 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 86 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 87 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 88 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 89 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 90 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 91 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 92 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 93 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 94 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 95 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 96 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 97 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 98 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 99 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 100 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 101 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 102 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 103 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 104 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 105 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 106 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 107 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 108 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 109 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 110 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 111 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
+srun --mpi=pmi2 -N 4 -n 112 ./d2q9-bgk input_1024x1024.params obstacles_1024x1024.dat
 
 

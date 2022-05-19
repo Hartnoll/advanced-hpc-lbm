@@ -1,11 +1,36 @@
 Intel(R) Parallel Studio XE 2020 Update 4 for Linux*
 Copyright 2009-2020 Intel Corporation.
-Running on host compute100.bc4.acrc.priv
-Time is Wed May 18 01:12:03 BST 2022
+Running on host compute105.bc4.acrc.priv
+Time is Wed May 18 13:06:04 BST 2022
 Directory is /user/home/gz19577/advanced-hpc-lbm
-Slurm job ID is 10347665
+Slurm job ID is 10348544
 This job runs on the following machines:
-compute[100-103]
-16.74078516.14780615.736296srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
-slurmstepd: error: *** STEP 10347665.3 ON compute100 CANCELLED AT 2022-05-18T01:13:05 ***
-slurmstepd: error: *** JOB 10347665 ON compute100 CANCELLED AT 2022-05-18T01:13:05 ***
+compute[105-108]
+16.692985 
+16.515869 
+15.668737 
+15.301423 
+14.943230 
+14.667001 
+14.089489 
+9.832238 
+9.890191 
+9.407568 
+9.319484 
+9.166936 
+8.806684 
+8.630780 
+8.505634 
+8.284875 
+8.174581 
+8.187612 
+8.380717 
+8.275274 
+7.515994 
+7.501649 
+7.383523 
+7.704275 
+7.314290 
+7.196732 
+7.331492 
+7.373583 

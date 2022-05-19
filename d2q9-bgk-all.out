@@ -1,0 +1,8 @@
+Intel(R) Parallel Studio XE 2020 Update 4 for Linux*
+Copyright 2009-2020 Intel Corporation.
+Running on host compute105.bc4.acrc.priv
+Time is Thu May 19 23:46:38 BST 2022
+Directory is /user/home/gz19577/advanced-hpc-lbm
+Slurm job ID is 10357529
+This job runs on the following machines:
+compute[105-108]

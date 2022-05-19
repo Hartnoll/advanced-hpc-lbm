@@ -1,9 +1,10 @@
 #!/bin/bash
 
-#SBATCH --nodes 4
+#SBATCH --nodes 3
 #SBATCH --partition veryshort
 #SBATCH --reservation=COSC026662
 #SBATCH --account=COSC026662
+#SBATCH --exclude compute[100,101,102,103,104]
 #SBATCH --job-name d2q9-bgk
 #SBATCH --time 01:00:00
 #SBATCH --output d2q9-bgk-3.out
