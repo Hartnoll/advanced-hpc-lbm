@@ -334,13 +334,12 @@ int main(int argc, char *argv[])
   /* write final values and _mm_free memory */
   if (rank == 0)
   {
-    // printf("==done==\n");
-    // printf("Reynolds number:\t\t%.12E\n", calc_reynolds(params, &final_cells, obstacles));
-    // printf("Elapsed Init time:\t\t\t%.6lf (s)\n", init_toc - init_tic);
-    // printf("Elapsed Compute time:\t\t\t%.6lf (s)\n", comp_toc - comp_tic);
-    // printf("Elapsed Collate time:\t\t\t%.6lf (s)\n", col_toc - col_tic);
-    // printf("Elapsed Total time:\t\t\t%.6lf (s)\n", tot_toc - tot_tic);
-    printf("%.2lf \n", tot_toc - tot_tic);
+    printf("==done==\n");
+    printf("Reynolds number:\t\t%.12E\n", calc_reynolds(params, &final_cells, obstacles));
+    printf("Elapsed Init time:\t\t\t%.6lf (s)\n", init_toc - init_tic);
+    printf("Elapsed Compute time:\t\t\t%.6lf (s)\n", comp_toc - comp_tic);
+    printf("Elapsed Collate time:\t\t\t%.6lf (s)\n", col_toc - col_tic);
+    printf("Elapsed Total time:\t\t\t%.6lf (s)\n", tot_toc - tot_tic);
     write_values(params, &final_cells, obstacles, av_vels);
   }
   finalise(&params, &final_cells, &tmp_cells, &cells, &obstacles, &av_vels, &sendData, &recvData, &sendDataLarge, &recvDataLarge, &recvcounts, &displs);
